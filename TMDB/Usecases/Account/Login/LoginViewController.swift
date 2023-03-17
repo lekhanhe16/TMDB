@@ -49,8 +49,10 @@ class LoginViewController: UIViewController {
                             self?.dismiss(animated: true)
                         }
                         else {
-                            let alert = UIAlertController(title: "Login failed", message: "Invalid username or password! Please try again,", preferredStyle: .alert)
+                            let alert = UIAlertController(title: "Login failed", message: "Invalid username or password! Please try again.", preferredStyle: .alert)
                             alert.addAction(UIAlertAction(title: "OK", style: .cancel))
+                            sender.isHidden = false
+                            self?.loadingIndicator.isHidden = true
                             self?.present(alert, animated: true)
                         }
                     }

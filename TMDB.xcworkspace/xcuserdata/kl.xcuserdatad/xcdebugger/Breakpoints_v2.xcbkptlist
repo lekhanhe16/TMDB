@@ -20,5 +20,68 @@
             landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A40B5574-B9AE-4F7B-A926-5C7303E59BC8"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TMDB/Usecases/Account/Login/LoginViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "14"
+            endingLineNumber = "14"
+            landmarkName = "login(username:pass:handler:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "A40B5574-B9AE-4F7B-A926-5C7303E59BC8 - e3e27097f1a3fdc8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;TMDB.Token&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in TMDB.LoginViewModel.login(username: Swift.String, pass: Swift.String, handler: (Swift.Bool) -&gt; ()) -&gt; ()"
+                  moduleName = "TMDB"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kl/workspace/TMDB/TMDB/Usecases/Account/Login/LoginViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "14"
+                  endingLineNumber = "14"
+                  offsetFromSymbolStart = "326">
+               </Location>
+               <Location
+                  uuid = "A40B5574-B9AE-4F7B-A926-5C7303E59BC8 - e3e27097f1a3fdc8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;TMDB.Token&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in TMDB.LoginViewModel.login(username: Swift.String, pass: Swift.String, handler: (Swift.Bool) -&gt; ()) -&gt; ()"
+                  moduleName = "TMDB"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kl/workspace/TMDB/TMDB/Usecases/Account/Login/LoginViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "14"
+                  endingLineNumber = "14"
+                  offsetFromSymbolStart = "360">
+               </Location>
+               <Location
+                  uuid = "A40B5574-B9AE-4F7B-A926-5C7303E59BC8 - e3e27097f1a3fdc8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;TMDB.Token&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in TMDB.LoginViewModel.login(username: Swift.String, pass: Swift.String, handler: (Swift.Bool) -&gt; ()) -&gt; ()"
+                  moduleName = "TMDB"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kl/workspace/TMDB/TMDB/Usecases/Account/Login/LoginViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "14"
+                  endingLineNumber = "14"
+                  offsetFromSymbolStart = "472">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

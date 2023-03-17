@@ -17,37 +17,22 @@ class MovieDetailViewModel {
     }
     
     func getSimilarMovies(id: Int, completion: @escaping ([Movie]) -> Void) {
-//        TmdbApiRouter.shared.request(cls: Response.self, router: <#T##BaseRouter#>, completion: <#T##(Decodable?, AFError?) -> Void#>)
-        let request = Request(url: K.baseUrl+apiLevel()+"/movie/\(id)/similar"+withApiKey(), method: .get, headers: nil)
-        TMDBApi.shared.sendRequest(with: request) { data, error in
-            if let safeData = data {
-                do {
-                    let movies = try JSONDecoder().decode(Response.self, from: safeData).results
-                    completion(movies)
-                }
-                catch {
-                    print(error)
-                }
+        let router = MovieDetailRouter(endpoint: .similarMovies(id: id))
+        TmdbApiRouter.shared.request(cls: Response.self, router: router) { data, err in
+            if let data = data, err == nil {
+                completion(data.results)
             }
         }
     }
+    
     func getMovieTrailer(id: Int, completion: @escaping (String) -> Void) {
-        let request = Request(url: K.baseUrl+apiLevel()+"/movie/\(id)/videos"+withApiKey(), method: .get, headers: nil)
-        TMDBApi.shared.sendRequest(with: request, handler: { (data, reqError) in
-            guard reqError != nil else {
-                if let safeData = data {
-                    do {
-                        let links = try JSONDecoder().decode(TrailerResponse.self, from: safeData)
-                        completion(links.results.first(where: { trailer in
-                            trailer.name.contains("Official")
-                        })?.key ?? links.results[0].key)
-                    }
-                    catch {
-                        print(error)
-                    }
-                }
-                return
+        let router = MovieDetailRouter(endpoint: .trailer(id: id))
+        TmdbApiRouter.shared.request(cls: TrailerResponse.self, router: router) { data, err in
+            if let links = data, err == nil {
+                completion(links.results.first(where: { trailer in
+                    trailer.name.contains("Official")
+                })?.key ?? links.results[0].key)
             }
-        })
+        }
     }
 }
