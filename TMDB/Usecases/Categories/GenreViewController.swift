@@ -8,14 +8,17 @@
 import UIKit
 
 class GenreViewController: UIViewController {
-
+    private var startContentOffset: CGFloat!
+    private var lastContentOffset: CGFloat!
+    private var isHidingTabBar: Bool = false
+    
     let viewModel = GenreViewModel()
     var dataSource: UICollectionViewDiffableDataSource<Int, Genre>!
     var snapshot: NSDiffableDataSourceSnapshot<Int, Genre>!
-    @IBOutlet weak var categoryCollectionView: UICollectionView!
+    @IBOutlet var categoryCollectionView: UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        print("genre view controller")
         // Do any additional setup after loading the view.
         setupCollectionView()
     }
@@ -25,10 +28,11 @@ class GenreViewController: UIViewController {
         categoryCollectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         categoryCollectionView.collectionViewLayout = createCollectionViewLayout()
         createDataSource()
+        categoryCollectionView.delegate = self
         viewModel.getGenres { arrGenres in
             DispatchQueue.main.async {
                 [weak self] () in
-                if let self = self {
+                if let self {
                     self.reloadData(genres: arrGenres)
                 }
             }
@@ -43,6 +47,7 @@ class GenreViewController: UIViewController {
             dataSource.apply(snapshot)
         }
     }
+
     func createDataSource() {
         dataSource = UICollectionViewDiffableDataSource(collectionView: categoryCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
             if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GenreViewCell.reuseIdentifier, for: indexPath) as? GenreViewCell {
@@ -52,9 +57,10 @@ class GenreViewController: UIViewController {
             return UICollectionViewCell()
         })
     }
+
     func createCollectionViewLayout() -> UICollectionViewCompositionalLayout {
-        let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnv in
-            return self.createSection()
+        let layout = UICollectionViewCompositionalLayout { _, _ in
+            self.createSection()
         }
         return layout
     }
@@ -80,7 +86,43 @@ class GenreViewController: UIViewController {
         let section = NSCollectionLayoutSection(group: group1)
         return section
     }
+    
+    func hideTabBarIfNeed() {
+        guard !isHidingTabBar else { return }
+        isHidingTabBar = true
+        tabBarController?.setTabbar(hidden: isHidingTabBar, animate: true)
+    }
+    
+    func showTabBarIfNeed() {
+        guard isHidingTabBar else { return }
+        isHidingTabBar = false
+        tabBarController?.setTabbar(hidden: isHidingTabBar, animate: true)
+    }
+    
     deinit {
         print("genre view controller deinit")
+    }
+}
+
+extension GenreViewController: UICollectionViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let currentOffset = scrollView.contentOffset.y
+        let differentFromStart = startContentOffset - currentOffset
+        let differentFromLast = lastContentOffset - currentOffset
+        lastContentOffset = currentOffset
+        if differentFromStart < 0 {
+            if scrollView.isTracking, abs(differentFromLast) > 1 {
+                hideTabBarIfNeed()
+            }
+        } else {
+            if scrollView.isTracking, abs(differentFromLast) > 1 {
+                showTabBarIfNeed()
+            }
+        }
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        startContentOffset = scrollView.contentOffset.y
+        lastContentOffset = scrollView.contentOffset.y
     }
 }

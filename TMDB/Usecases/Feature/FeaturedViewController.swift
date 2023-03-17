@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AuthenticationServices
 
 class FeaturedViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
