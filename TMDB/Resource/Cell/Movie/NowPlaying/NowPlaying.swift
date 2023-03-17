@@ -9,7 +9,7 @@ import UIKit
 import SDWebImage
 
 class NowPlaying: UICollectionViewCell {
-
+    let transformer = SDImageResizingTransformer(size: CGSize(width: 400, height: 200), scaleMode: .aspectFit)
     @IBOutlet weak var rating: UILabel!
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var img: UIImageView!
@@ -28,7 +28,7 @@ extension NowPlaying: BaseCell {
         addScoreView(voteAvg: movie.vote_average)
         guard let url = movie.backdrop_path else {return}
         if let urlStr = (K.baseImgUrl+url).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
-            img.sd_setImage(with: URL(string: urlStr))
+            img.sd_setImage(with: URL(string: urlStr), placeholderImage: nil, context: [.imageTransformer:transformer])
             img.layer.cornerRadius = 8
             img.clipsToBounds = true
             img.layer.masksToBounds = true
