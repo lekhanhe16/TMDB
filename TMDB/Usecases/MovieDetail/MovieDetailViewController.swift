@@ -12,6 +12,9 @@ class MovieDetailViewController: UIViewController {
     @IBAction func btnPlayTrailerClicked(_ sender: UIButton) {
         playVideo()
     }
+    
+    let transformer = SDImageResizingTransformer(size: CGSize(width: 400, height: 200), scaleMode: .aspectFit)
+    
     @IBOutlet weak var similarMoviesList: UICollectionView!
     @IBOutlet weak var movieTitle: UILabel!
     @IBOutlet weak var movieInfo: UILabel!
@@ -102,7 +105,7 @@ class MovieDetailViewController: UIViewController {
         
         guard let url = movie.backdrop_path else {return}
         if let urlStr = (K.baseImgUrl+url).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
-            imageView.sd_setImage(with: URL(string: urlStr))
+            imageView.sd_setImage(with: URL(string: urlStr), placeholderImage: nil, context: [.imageTransformer:transformer])
         }
         
         viewModel.getMovieTrailer(id: movie.id) { [weak self] (key) in
@@ -117,12 +120,11 @@ class MovieDetailViewController: UIViewController {
             guard let weakSelf = self else { return PopUpTrailerViewController(coder: coder, key: "")}
             return PopUpTrailerViewController(coder: coder, key: weakSelf.trailerKey)
         })
-        
         addChild(popVC)
         popVC.view.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.height)
 //        popVC.view.layer.cornerRadius = 5
         view.addSubview(popVC.view)
-        
+
         view.addConstraints([
             popVC.view.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             popVC.view.centerXAnchor.constraint(equalTo: view.centerXAnchor)
