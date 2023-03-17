@@ -16,14 +16,6 @@ class BaseRouter: URLConvertible {
     var contextPath: String {
         "3"
     }
-    
-    var urlParams: Parameters? {
-        return nil
-    }
-
-    var api_key: String {
-        "?api_key=\(K.api_key)"
-    }
 
     var path: String {
         fatalError("[\(#function))] Must be overridden in subclass")

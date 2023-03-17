@@ -24,9 +24,6 @@ class AuthenticationRouter: BaseRouter {
                 return "/authentication/token/validate_with_login"
         }
     }
-    override var urlParams: Parameters {
-        return ["api_key" : K.api_key]
-    }
     
     override var method: HTTPMethod?{
         switch endpoint {
